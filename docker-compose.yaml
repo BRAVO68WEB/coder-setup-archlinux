@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+    app:
+        build:
+          context: .
+          dockerfile: Dockerfile
+        container_name: coder-arch
+        ports:
+          - "8551:8080"
+        networks:
+          - codernet
+        restart: unless-stopped
+        volumes:
+          - "coderdata:/home/coder/"
+          - /var/run/docker.sock:/var/run/docker.sock
+        environment:
+          - "CODER_HTTP_ADDRESS=0.0.0.0:8080"
+          - "CODER_ACCESS_URL=https://coder.b68.dev"
+networks:
+    codernet:
+
+volumes:
+    coderdata:
