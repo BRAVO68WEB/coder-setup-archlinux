@@ -3,17 +3,20 @@ FROM ljmf00/archlinux AS base
 RUN pacman -Syu --noconfirm \
     && pacman -S --noconfirm \
         base-devel \
+	curl \
+	sudo \
         git \
         vim \
         wget \
         zsh \
+        gnu-netcat \
     && pacman -Scc --noconfirm
 
 ARG USER=coder
 
-RUN useradd --groups sudo --no-create-home --shell /bin/bash ${USER} \
-	&& echo "${USER} ALL=(ALL) NOPASSWD:ALL" >/etc/sudoers.d/${USER} \
-	&& chmod 0440 /etc/sudoers.d/${USER}
+RUN useradd -m -G wheel -s /bin/zsh -d /home/${USER} ${USER} \
+    && echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
+    && chown -R ${USER}:${USER} /home/${USER}
 
 USER ${USER}
 
