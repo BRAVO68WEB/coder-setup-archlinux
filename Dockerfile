@@ -19,8 +19,8 @@ USER coder
 
 RUN ls -a
 
-RUN sudo wget https://download.docker.com/linux/static/stable/aarch64/docker-24.0.4.tgz \ 
-    && sudo tar xzvf docker-24.0.4.tgz \
+RUN sudo wget https://download.docker.com/linux/static/stable/aarch64/docker-27.3.1.tgz \ 
+    && sudo tar xzvf docker-27.3.1.tgz \
     && sudo cp docker/* /usr/bin/
 
 RUN curl -fsSL https://coder.com/install.sh | sh
